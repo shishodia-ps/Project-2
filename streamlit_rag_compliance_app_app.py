@@ -9,7 +9,6 @@ import json
 import re
 
 import streamlit as st
-from dotenv import load_dotenv
 
 # LangChain / Vector DB
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
@@ -29,7 +28,7 @@ from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY
 
-load_dotenv()
+
 
 # ----------------------------
 # UI CONFIG & CONSTANTS
@@ -69,9 +68,16 @@ st.markdown(CSS, unsafe_allow_html=True)
 # ----------------------------
 
 def _ensure_embeddings():
-    key = os.getenv("OPENAI_API_KEY")
+    # Priority: user-entered key (stored in session)
+    key = (
+        st.session_state.get("user_api")
+        or os.getenv("OPENAI_API_KEY")
+    )
     if not key:
-        st.warning("OPENAI_API_KEY not set. Add it in your environment or in Streamlit secrets.")
+        st.warning("⚠️ No OpenAI API key set. Please enter it in the sidebar.")
+        return None
+
+    os.environ["OPENAI_API_KEY"] = key  # ensure downstream tools see it
     return OpenAIEmbeddings()
 
 def load_pdf_to_documents(uploaded_file, category: str) -> List[Document]:
@@ -107,6 +113,9 @@ def split_docs(docs: List[Document]) -> List[Document]:
 
 def build_vectorstore(company_docs: List[Document], benchmark_docs: List[Document]) -> Chroma:
     embeddings = _ensure_embeddings()
+    if embeddings is None:
+        st.error("Embedding setup failed — please add your OpenAI API key first.")
+        return
     persist_dir = os.path.join(tempfile.gettempdir(), f"rag_chroma_{st.session_state.get('run_id','default')}")
     vs = Chroma(
         embedding_function=embeddings,
@@ -430,6 +439,22 @@ def main():
     st.sidebar.image("ey_logo.png", width='content')
     st.sidebar.markdown("### Navigation")
     page = st.sidebar.radio("Navigation", ["Upload & Index", "Compare & Report", "Chat"], index=0)
+
+        # --- API Key configuration ---
+    st.sidebar.markdown("### 🔑 OpenAI API Key")
+    user_api = st.sidebar.text_input(
+        "Paste your OpenAI API Key here (will not be saved):",
+        type="password",
+        placeholder="sk-...",
+    )
+    if user_api:
+        os.environ["OPENAI_API_KEY"] = user_api
+        st.session_state["user_api"] = user_api
+        st.sidebar.success("✅ Key active for this session")
+    elif "user_api" in st.session_state:
+        os.environ["OPENAI_API_KEY"] = st.session_state["user_api"]
+    else:
+        st.sidebar.warning("⚠️ No API key set — please enter it above before running analysis.")
 
     if page == "Upload & Index":
         page_ingest()
