@@ -1,0 +1,23 @@
+streamlit>=1.36
+python-dotenv>=1.0.1
+
+# LangChain core + integrations
+langchain>=0.2.9
+langchain-core>=0.2.38
+langchain-openai>=0.1.22
+langchain-text-splitters>=0.2.2
+
+# Vector store wrapper
+langchain-chroma>=0.1.0
+chromadb>=0.5.3
+
+# PDF + tokenization
+pypdf>=4.2.0
+reportlab>=4.0.9
+tiktoken>=0.7.0
+
+# Template engine for prompts
+Jinja2>=3.1.4
+
+# OpenAI SDK (pulled as a dep but explicit is better)
+openai>=1.40.0
