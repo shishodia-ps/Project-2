@@ -1,0 +1,3 @@
+{"timestamp": "2025-11-13T18:50:24.341322", "level": "INFO", "topic": "ingestion", "message": "Documents indexed successfully", "data": {"company_chunks": 51, "benchmark_chunks": 193}}
+{"timestamp": "2025-11-13T18:51:01.326989", "level": "INFO", "topic": "risk assessment methodology", "message": "Starting requirement-based analysis", "data": {}}
+{"timestamp": "2025-11-13T18:51:39.978137", "level": "INFO", "topic": "PEPs", "message": "Starting requirement-based analysis", "data": {}}

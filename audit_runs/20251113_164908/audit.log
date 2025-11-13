@@ -1,0 +1,3 @@
+{"timestamp": "2025-11-13T16:49:41.366117", "level": "INFO", "topic": "ingestion", "message": "Documents indexed", "data": {"company_doc": "82539-mcgc-dutch-corporate-governance-code-tg.pdf", "benchmark_doc": "Bijlage 6_ Algemene leidraad Wwft.pdf", "total_chunks": 244}}
+{"timestamp": "2025-11-13T16:50:06.498289", "level": "INFO", "topic": "risk assessment methodology", "message": "Starting requirement-based analysis", "data": {}}
+{"timestamp": "2025-11-13T16:50:41.416070", "level": "INFO", "topic": "beneficial ownership", "message": "Starting requirement-based analysis", "data": {}}
