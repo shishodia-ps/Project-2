@@ -6,7 +6,7 @@ langchain>=0.2.9
 langchain-core>=0.2.38
 langchain-openai>=0.1.22
 langchain-text-splitters>=0.2.2
-
+langchain-community>=0.2.12
 # Vector store wrapper
 langchain-chroma>=0.1.0
 chromadb>=0.5.3
