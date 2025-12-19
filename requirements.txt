@@ -21,3 +21,5 @@ Jinja2>=3.1.4
 
 # OpenAI SDK (pulled as a dep but explicit is better)
 openai>=1.40.0
+cryptography>=3.1
+aiohttp
