@@ -37,6 +37,7 @@ st.set_page_config(page_title="Compliance RAG — WWFT / Code vs Company", layou
 
 PRIMARY_TOPICS = [
     "risk assessment methodology",
+    "Anti money laundering",
     "beneficial ownership",
     "PEPs",
     "sanctions screening",
